@@ -7,6 +7,8 @@ const cwd = process.cwd().replace (/\\/g, '/')
 const suffix = '/node_modules/preact-cli-plugin-flow'
 const root = cwd.endsWith(suffix) ? cwd.substr(0, cwd.length - suffix.length) : cwd
 
+console.log(root)
+
 function flowTypedUpdate() {
     exec('flow-typed update', {cwd: root}, (error) => {
         if (error) {
