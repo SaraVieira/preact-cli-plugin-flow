@@ -6,18 +6,15 @@
   "author": "https://github.com/SaraVieira",
   "repository": "https://github.com/SaraVieira/preact-cli-plugin-flow",
   "license": "MIT",
-  "bin": {
-    "preact-cli-plugin-flow": "./bin/index.js"
-  },
   "bin": "bin/index.js",
   "scripts": {
     "prepublish": "npm run lint",
     "lint": "eslint src/"
   },
   "devDependencies": {
+    "eslint": "^4.2.0",
     "npm-run-all": "^4.0.2",
-    "publish-please": "^2.3.1",
-    "eslint": "^4.2.0"
+    "publish-please": "^2.3.1"
   },
   "dependencies": {
     "babel-plugin-lodash": "^3.2.11",

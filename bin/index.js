@@ -3,13 +3,14 @@
 /* global require process */
 var exec = require('child_process').exec
 
-var cwd = process.cwd().replace (/\\/g, '/')
-var suffix = '/node_modules/preact-cli-plugin-flow'
+const cwd = process.cwd().replace (/\\/g, '/')
+const suffix = '/node_modules/preact-cli-plugin-flow'
+const root = cwd.endsWith(suffix) ? cwd.substr(0, cwd.length - suffix.length) : cwd
 
 function flowTypedUpdate() {
     exec('flow-typed update', {cwd: root}, (error) => {
         if (error) {
-            console.error(`exec error: ${error}`) // eslint-disable-line no-console
+            console.error(`exec error: flow-ttped ${error}`) // eslint-disable-line no-console
             return
         }
         console.log('Flow-typed updated')  // eslint-disable-line no-console
@@ -19,7 +20,7 @@ function flowTypedUpdate() {
 function installFlowBin() {
     exec('npm install --save-dev flow-bin', {cwd: root}, (error) => {
         if (error) {
-            console.error(`exec error: ${error}`) // eslint-disable-line no-console
+            console.error(`exec error npm i: ${error}`) // eslint-disable-line no-console
             return
         }
         console.log('Flow Bin installed')  // eslint-disable-line no-console
@@ -28,15 +29,12 @@ function installFlowBin() {
     })
 }
 
-if (cwd.endsWith(suffix)) {
-    var root = cwd.substr(0, cwd.length - suffix.length)
-    exec('flow init', {cwd: root}, (error) => {
-        if (error) {
-            console.error(`exec error: ${error}`) // eslint-disable-line no-console
-            return
-        }
-        console.log('Flow initialized')  // eslint-disable-line no-console
+exec('flow init', {cwd: root}, (error) => {
+    if (error) {
+        console.error(`exec error init: ${error}`) // eslint-disable-line no-console
+        return
+    }
+    console.log('Flow initialized')  // eslint-disable-line no-console
 
-        installFlowBin()
-    })
-}
+    installFlowBin()
+})
