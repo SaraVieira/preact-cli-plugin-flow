@@ -13,10 +13,7 @@
   "scripts": {
     "prepublish": "npm run lint",
     "lint": "eslint src/",
-    "flow:init": "flow init",
-    "flow:typed": "flow-typed update",
-    "postinstall": "node ./bin/index.js",
-    "setup": "run-s flow:init flow:typed"
+    "postinstall": "node ./bin/index.js"
   },
   "devDependencies": {
     "npm-run-all": "^4.0.2",
