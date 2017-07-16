@@ -7,7 +7,7 @@
   "repository": "https://github.com/SaraVieira/preact-cli-plugin-flow",
   "license": "MIT",
   "bin": {
-    "preact-cli-plugin-flow": "./bin/index"
+    "preact-cli-plugin-flow": "./bin/index.js"
   },
   "bin": "bin/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "lint": "eslint src/",
     "flow:init": "flow init",
     "flow:typed": "flow-typed update",
-    "postinstall": "node ./bin/index",
+    "postinstall": "node ./bin/index.js",
     "setup": "run-s flow:init flow:typed"
   },
   "devDependencies": {
