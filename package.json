@@ -12,8 +12,7 @@
   "bin": "bin/index.js",
   "scripts": {
     "prepublish": "npm run lint",
-    "lint": "eslint src/",
-    "postinstall": "node ./bin/index.js"
+    "lint": "eslint src/"
   },
   "devDependencies": {
     "npm-run-all": "^4.0.2",
