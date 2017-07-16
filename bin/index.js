@@ -15,5 +15,12 @@ if (cwd.endsWith(suffix)) {
 
     console.log(root)
 
-    exec('npm run setup', {cwd: root})
+    exec('npm run setup', {cwd: root}, (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`)
+            return
+        }
+        console.log(`stdout: ${stdout}`)
+        console.log(`stderr: ${stderr}`)
+    })
 }
