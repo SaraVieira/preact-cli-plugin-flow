@@ -6,12 +6,17 @@
   "author": "https://github.com/SaraVieira",
   "repository": "https://github.com/SaraVieira/preact-cli-plugin-flow",
   "license": "MIT",
+  "bin": {
+    "preact-cli-plugin-flow": "./bin/index"
+  },
+  "bin": "bin/index.js",
   "scripts": {
     "prepublish": "npm run lint",
     "lint": "eslint src/",
     "flow:init": "flow init",
     "flow:typed": "flow-typed update",
-    "postinstall": "run-s flow:init flow:typed"
+    "postinstall": "node ./bin/index",
+    "setup": "run-s flow:init flow:typed"
   },
   "devDependencies": {
     "npm-run-all": "^4.0.2",
