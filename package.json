@@ -1,0 +1,27 @@
+{
+  "name": "preact-cli-plugin-flow",
+  "description": "Use flow with the Preact CLI",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "author": "https://github.com/SaraVieira",
+  "repository": "https://github.com/SaraVieira/preact-cli-plugin-flow",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "npm run lint",
+    "lint": "eslint src/",
+    "flow:init": "flow init",
+    "flow:typed": "flow-typed update",
+    "postinstall": "run-s flow:init flow:typed"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.0.2",
+    "publish-please": "^2.3.1"
+  },
+  "dependencies": {
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "eslint": "^4.2.0",
+    "flow-bin": "^0.50.0",
+    "flow-typed": "^2.1.2"
+  }
+}
