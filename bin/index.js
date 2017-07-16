@@ -1,42 +1,45 @@
 #!/usr/bin/env node
 
 /* global require process */
-var exec = require('child_process').exec
+const exec = require('child_process').exec
+const ora = require('ora')
 
 const cwd = process.cwd().replace (/\\/g, '/')
 const suffix = '/node_modules/preact-cli-plugin-flow'
 const root = cwd.endsWith(suffix) ? cwd.substr(0, cwd.length - suffix.length) : cwd
-
-console.log(root)
+const spinner = ora('Loading unicorns').start()
 
 function flowTypedUpdate() {
+    spinner.start('Running flow typed')
     exec('flow-typed update', {cwd: root}, (error) => {
         if (error) {
-            console.error(`exec error: flow-ttped ${error}`) // eslint-disable-line no-console
+            spinner.fail(`exec error: flow-ttped ${error}`)
             return
         }
-        console.log('Flow-typed updated')  // eslint-disable-line no-console
+        spinner.succeed('Flow-typed updated')
     })
 }
 
 function installFlowBin() {
+    spinner.start('Installing Flow Bin')
     exec('npm install --save-dev flow-bin', {cwd: root}, (error) => {
         if (error) {
-            console.error(`exec error npm i: ${error}`) // eslint-disable-line no-console
+            spinner.fail(`exec error npm i: ${error}`)
             return
         }
-        console.log('Flow Bin installed')  // eslint-disable-line no-console
+        spinner.succeed('Flow Bin installed')
 
         flowTypedUpdate()
     })
 }
 
 exec('flow init', {cwd: root}, (error) => {
+    spinner.start('Flow is initializing')
     if (error) {
-        console.error(`exec error init: ${error}`) // eslint-disable-line no-console
+        spinner.fail(`exec error init: ${error}`)
         return
     }
-    console.log('Flow initialized')  // eslint-disable-line no-console
+    spinner.succeed('Flow initialized')
 
     installFlowBin()
 })
