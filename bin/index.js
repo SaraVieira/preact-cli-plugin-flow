@@ -16,7 +16,7 @@ const flowConfig = fs.readFileSync(srcPath)
 
 function flowTypedUpdate() {
     spinner.start('Running flow typed')
-    exec('flow-typed update', { cwd: root }, error => {
+    exec('flow-typed install preact', { cwd: root }, error => {
         if (error) {
             spinner.fail(`Error: flow-typed ${error}`)
             return
