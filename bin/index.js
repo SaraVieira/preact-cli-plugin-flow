@@ -18,7 +18,7 @@ function flowTypedUpdate() {
     spinner.start('Running flow typed')
     exec('flow-typed update', { cwd: root }, error => {
         if (error) {
-            spinner.fail(`exec error: flow-ttped ${error}`)
+            spinner.fail(`Error: flow-typed ${error}`)
             return
         }
         spinner.succeed('Flow-typed updated')
@@ -26,22 +26,26 @@ function flowTypedUpdate() {
 }
 
 function installFlowBin() {
-    spinner.start('Installing Flow Bin')
-    exec('npm install --save-dev flow-bin flow-typed', { cwd: root }, error => {
-        if (error) {
-            spinner.fail(`exec error npm i: ${error}`)
-            return
-        }
-        spinner.succeed('Flow Bin installed')
+    spinner.start('Installing Dependencies')
+    exec(
+        'npm install --save-dev flow-bin flow-typed css-module-flow"',
+        { cwd: root },
+        error => {
+            if (error) {
+                spinner.fail(`Error npm i: ${error}`)
+                return
+            }
+            spinner.succeed('Dependencies installed')
 
-        flowTypedUpdate()
-    })
+            flowTypedUpdate()
+        }
+    )
 }
 
 spinner.start('Flow is scaffholding')
 fs.writeFile(dstPath, flowConfig, function(error) {
     if (error) {
-        spinner.fail(`exec error init: ${error}`)
+        spinner.fail(`Error init: ${error}`)
         return
     }
     spinner.succeed('Scaffholding Done')
