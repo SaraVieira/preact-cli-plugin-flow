@@ -21,6 +21,12 @@ function flowTypedUpdate() {
             spinner.fail(`Error: flow-typed ${error}`)
             return
         }
+        exec('flow-typed update', { cwd: root }, error => {
+            if (error) {
+                spinner.fail(`Error: flow-typed ${error}`)
+                return
+            }
+        })
         spinner.succeed('Flow-typed updated')
     })
 }
