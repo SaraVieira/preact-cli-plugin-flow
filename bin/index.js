@@ -28,7 +28,7 @@ function flowTypedUpdate() {
 function installFlowBin() {
     spinner.start('Installing Dependencies')
     exec(
-        'npm install --save-dev flow-bin flow-typed css-module-flow"',
+        'npm install --save-dev flow-bin flow-typed css-module-flow',
         { cwd: root },
         error => {
             if (error) {
