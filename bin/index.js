@@ -27,7 +27,7 @@ function flowTypedUpdate() {
 
 function installFlowBin() {
     spinner.start('Installing Flow Bin')
-    exec('npm install --save-dev flow-bin', { cwd: root }, error => {
+    exec('npm install --save-dev flow-bin flow-typed', { cwd: root }, error => {
         if (error) {
             spinner.fail(`exec error npm i: ${error}`)
             return
