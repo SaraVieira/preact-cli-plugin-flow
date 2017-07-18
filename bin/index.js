@@ -16,17 +16,13 @@ const flowConfig = fs.readFileSync(srcPath)
 
 function flowTypedUpdate() {
     spinner.start('Running flow typed')
-    exec(
-        `${path.join(root, 'node_modules/.bin/flow-typed')} update`,
-        { cwd: root },
-        error => {
-            if (error) {
-                spinner.fail(`Error: flow-typed ${error}`)
-                return
-            }
-            spinner.succeed('Flow-typed updated')
+    exec('flow-typed update', { cwd: root }, error => {
+        if (error) {
+            spinner.fail(`Error: flow-typed ${error}`)
+            return
         }
-    )
+        spinner.succeed('Flow-typed updated')
+    })
 }
 
 function installFlowBin() {
