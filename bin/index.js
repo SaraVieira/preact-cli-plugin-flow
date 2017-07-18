@@ -1,17 +1,22 @@
 #!/usr/bin/env node
-
-/* global require process */
 const exec = require('child_process').exec
 const ora = require('ora')
+const path = require('path')
+const fs = require('fs')
 
-const cwd = process.cwd().replace (/\\/g, '/')
+const cwd = process.cwd().replace(/\\/g, '/')
 const suffix = '/node_modules/preact-cli-plugin-flow'
-const root = cwd.endsWith(suffix) ? cwd.substr(0, cwd.length - suffix.length) : cwd
+const root = cwd.endsWith(suffix)
+    ? cwd.substr(0, cwd.length - suffix.length)
+    : cwd
 const spinner = ora('Loading unicorns').start()
+const srcPath = path.join(cwd, '.flowconfig')
+const dstPath = path.join(root, '.flowconfig')
+const flowConfig = fs.readFileSync(srcPath)
 
 function flowTypedUpdate() {
     spinner.start('Running flow typed')
-    exec('flow-typed update', {cwd: root}, (error) => {
+    exec('flow-typed update', { cwd: root }, error => {
         if (error) {
             spinner.fail(`exec error: flow-ttped ${error}`)
             return
@@ -22,7 +27,7 @@ function flowTypedUpdate() {
 
 function installFlowBin() {
     spinner.start('Installing Flow Bin')
-    exec('npm install --save-dev flow-bin', {cwd: root}, (error) => {
+    exec('npm install --save-dev flow-bin', { cwd: root }, error => {
         if (error) {
             spinner.fail(`exec error npm i: ${error}`)
             return
@@ -33,13 +38,12 @@ function installFlowBin() {
     })
 }
 
-exec('flow init', {cwd: root}, (error) => {
-    spinner.start('Flow is initializing')
+spinner.start('Flow is scaffholding')
+fs.writeFile(dstPath, flowConfig, function(error) {
     if (error) {
         spinner.fail(`exec error init: ${error}`)
         return
     }
-    spinner.succeed('Flow initialized')
-
+    spinner.succeed('Scaffholding Done')
     installFlowBin()
 })
