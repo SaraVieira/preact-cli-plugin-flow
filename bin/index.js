@@ -16,36 +16,26 @@ const flowConfig = fs.readFileSync(srcPath)
 
 function flowTypedUpdate() {
     spinner.start('Running flow typed')
-    exec('flow-typed install preact', { cwd: root }, error => {
+    exec('node_modules/.bin/flow-typed update', { cwd: root }, error => {
         if (error) {
             spinner.fail(`Error: flow-typed ${error}`)
             return
         }
-        exec('flow-typed update', { cwd: root }, error => {
-            if (error) {
-                spinner.fail(`Error: flow-typed ${error}`)
-                return
-            }
-        })
         spinner.succeed('Flow-typed updated')
     })
 }
 
 function installFlowBin() {
     spinner.start('Installing Dependencies')
-    exec(
-        'npm install --save-dev flow-bin flow-typed css-module-flow',
-        { cwd: root },
-        error => {
-            if (error) {
-                spinner.fail(`Error npm i: ${error}`)
-                return
-            }
-            spinner.succeed('Dependencies installed')
-
-            flowTypedUpdate()
+    exec('npm install --save-dev flow-bin', { cwd: root }, error => {
+        if (error) {
+            spinner.fail(`Error npm i: ${error}`)
+            return
         }
-    )
+        spinner.succeed('Dependencies installed')
+
+        flowTypedUpdate()
+    })
 }
 
 spinner.start('Flow is scaffholding')
