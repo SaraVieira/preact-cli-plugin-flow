@@ -14,17 +14,6 @@ const srcPath = path.join(cwd, '.flowconfig')
 const dstPath = path.join(root, '.flowconfig')
 const flowConfig = fs.readFileSync(srcPath)
 
-function flowTypedUpdate() {
-    spinner.start('Running flow typed')
-    exec('flow-typed update', { cwd: root }, error => {
-        if (error) {
-            spinner.fail(`Error: flow-typed ${error}`)
-            return
-        }
-        spinner.succeed('Flow-typed updated')
-    })
-}
-
 function installFlowBin() {
     spinner.start('Installing Dependencies')
     exec('npm install --save-dev flow-bin', { cwd: root }, error => {
@@ -33,8 +22,6 @@ function installFlowBin() {
             return
         }
         spinner.succeed('Dependencies installed')
-
-        flowTypedUpdate()
     })
 }
 
