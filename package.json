@@ -1,7 +1,7 @@
 {
     "name": "preact-cli-plugin-flow",
     "description": "Use flow with the Preact CLI",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "main": "src/index.js",
     "author": "https://github.com/SaraVieira",
     "repository": "https://github.com/SaraVieira/preact-cli-plugin-flow",
