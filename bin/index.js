@@ -12,25 +12,31 @@ const root = cwd.endsWith(suffix)
 const spinner = ora('Loading unicorns').start()
 const srcPath = path.join(cwd, '.flowconfig')
 const dstPath = path.join(root, '.flowconfig')
+const yarn = path.join(root, 'yarn.lock')
 const flowConfig = fs.readFileSync(srcPath)
+let installer = 'npm install'
+
+if (fs.existsSync(yarn)) {
+    installer = 'yarn add'
+}
 
 function installFlowBin() {
     spinner.start('Installing Dependencies')
-    exec('npm install --save-dev flow-bin', { cwd: root }, error => {
+    exec(`${installer} flow-bin --save-dev`, { cwd: root }, error => {
         if (error) {
-            spinner.fail(`Error npm i: ${error}`)
+            spinner.fail(`Install Error: ${error}`)
             return
         }
         spinner.succeed('Dependencies installed')
     })
 }
 
-spinner.start('Flow is scaffholding')
+spinner.start('Flow is scaffolding')
 fs.writeFile(dstPath, flowConfig, function(error) {
     if (error) {
         spinner.fail(`Error init: ${error}`)
         return
     }
-    spinner.succeed('Scaffholding Done')
+    spinner.succeed('Scaffolding Done')
     installFlowBin()
 })
