@@ -18,12 +18,11 @@ let installer = 'npm install'
 
 if (fs.existsSync(yarn)) {
     installer = 'yarn add'
-    console.log('djha')
 }
 
 function installFlowBin() {
     spinner.start('Installing Dependencies')
-    exec(`${installer} flow-bin --save-dev`, { cwd: root }, error => {
+    exec('yarn add flow-bin --save-dev', { cwd: root }, error => {
         if (error) {
             spinner.fail(`Install Error: ${error}`)
             return
