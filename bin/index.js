@@ -12,18 +12,17 @@ const root = cwd.endsWith(suffix)
 const spinner = ora('Loading unicorns').start()
 const srcPath = path.join(cwd, '.flowconfig')
 const dstPath = path.join(root, '.flowconfig')
-const yarn = path.join(root, 'yarn.lock')
 const flowConfig = fs.readFileSync(srcPath)
-let installer = 'npm install'
-
-if (fs.existsSync(yarn)) {
-    installer = 'yarn add'
-}
+const {
+    bin, // (String)  path to executed binary (yarn or npm)
+    isYarn, // (Boolean) if it was executed with Yarn
+    isNPM // (Boolean) if it was executed with npm
+} = require('nyr')
 
 function installFlowBin() {
-    console.log(installer)
+    console.log(bin)
     spinner.start('Installing Dependencies')
-    exec(`${installer} flow-bin --save-dev`, { cwd: root }, error => {
+    exec(`${bin} flow-bin --save-dev`, { cwd: root }, error => {
         if (error) {
             spinner.fail(`Install Error: ${error}`)
             return
