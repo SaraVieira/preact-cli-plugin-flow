@@ -22,7 +22,7 @@ if (fs.existsSync(yarn)) {
 
 function installFlowBin() {
     spinner.start('Installing Dependencies')
-    exec('yarn add flow-bin --save-dev', { cwd: root }, error => {
+    exec(`${installer} flow-bin --save-dev`, { cwd: root }, error => {
         if (error) {
             spinner.fail(`Install Error: ${error}`)
             return
@@ -38,5 +38,12 @@ fs.writeFile(dstPath, flowConfig, function(error) {
         return
     }
     spinner.succeed('Scaffolding Done')
-    installFlowBin()
+    spinner.start('Installing Dependencies')
+    exec(`${installer} flow-bin --save-dev`, { cwd: root }, error => {
+        if (error) {
+            spinner.fail(`Install Error: ${error}`)
+            return
+        }
+        spinner.succeed('Dependencies installed')
+    })
 })
