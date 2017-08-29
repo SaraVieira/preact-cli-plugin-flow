@@ -18,6 +18,7 @@ let installer = 'npm install'
 
 if (fs.existsSync(yarn)) {
     installer = 'yarn add'
+    console.log('djha')
 }
 
 function installFlowBin() {
