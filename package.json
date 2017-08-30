@@ -13,12 +13,15 @@
         "postinstall": "node ./bin/index.js"
     },
     "devDependencies": {
+        "babel-eslint": "^7.2.3",
         "npm-run-all": "^4.0.2",
+        "nyr": "^1.1.0",
         "publish-please": "^2.3.1"
     },
     "dependencies": {
         "babel-plugin-lodash": "^3.2.11",
         "babel-plugin-transform-flow-strip-types": "^6.22.0",
+        "cross-spawn-promise": "^0.10.1",
         "css-module-flow": "^1.0.0",
         "eslint": "^4.2.0",
         "flow-bin": "^0.53.1",
