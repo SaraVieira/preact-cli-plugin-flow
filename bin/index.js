@@ -16,30 +16,20 @@ const dstPath = path.join(root, '.flowconfig')
 const flowConfig = fs.readFileSync(srcPath)
 const yarnLock = path.join(root, 'yarn.lock')
 const { isYarn } = require('nyr')
+const isYarnPossible = fs.existsSync(yarnLock) || isYarn
 
-const install = async (yarn, cwd, packages, env) => {
+const install = async (packages, env) => {
     let isDev = env === 'dev' ? true : false
-    let isYarnAvailable = fs.existsSync(yarnLock) || isYarn
     let toInstall = packages.filter(Boolean)
 
-    // pass null to use yarn only if yarn.lock is present
-    if (!yarn) {
-        try {
-            let stat = await fs.stat(path.resolve(cwd, 'yarn.lock'))
-            yarn = stat.isFile()
-        } catch (e) {
-            yarn = false
-        }
-    }
-
-    if (isYarnAvailable && yarn) {
+    if (isYarnPossible) {
         let args = ['add']
         if (isDev) {
             args.push('-D')
         }
 
         return await spawn('yarn', [...args, ...toInstall], {
-            cwd,
+            root,
             stdio: 'ignore'
         })
     }
@@ -47,13 +37,13 @@ const install = async (yarn, cwd, packages, env) => {
     await spawn(
         'npm',
         ['install', isDev ? '--save-dev' : '--save', ...toInstall],
-        { cwd, stdio: 'ignore' }
+        { root, stdio: 'ignore' }
     )
 }
 
 const installFlowBin = async () => {
     spinner.start('Installing Dependencies')
-    await install(isYarn, root, ['flow-bin'], 'dev')
+    await install(['flow-bin'], 'dev')
     spinner.succeed('Dependencies installed')
 }
 
