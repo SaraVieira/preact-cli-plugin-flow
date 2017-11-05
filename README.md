@@ -2,6 +2,10 @@
 
 Use flow with the Preact CLI
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/TcwA1EShekGpPzRyQvGn9ysQ/SaraVieira/preact-cli-plugin-flow'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/TcwA1EShekGpPzRyQvGn9ysQ/SaraVieira/preact-cli-plugin-flow.svg' />
+</a>
+
 ## Getting Started
 
 Install it via npm:
